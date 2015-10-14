@@ -2,21 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name epamTestApp
+ * @name testApp
  * @description
- * # epamTestApp
+ * # testApp
  *
  * Main module of the application.
  */
 angular
-  .module('epamTestApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
+  .module('testApp', ['ngRoute'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name epamTestApp.controller:AboutCtrl
+ * @name testApp.controller:AboutCtrl
  * @description
  * # AboutCtrl
- * Controller of the epamTestApp
+ * Controller of the testApp
  */
-angular.module('epamTestApp')
+angular.module('testApp')
   .controller('AboutCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
