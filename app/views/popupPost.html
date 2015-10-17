@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h3 class="modal-title">Post: "{{record.title}}"</h3><br/>
+</div>
+<div  class="modal-body">
+  <form name="formPost" novalidate ng-submit="saveRecord(record)">
+    <div class="row">
+      <label class="col-sm-1 col-sm-offset-1">Title:</label>
+      <input name="title" class="col-sm-9" ng-model="record.title" placeholder="Enter title" required/>
+      <label class="error">*</label>
+    </div>
+    <div class="row">
+      <div class="error col-sm-4 col-sm-offset-2" ng-show="formPost.title.$invalid && formPost.title.$dirty">
+        {{getError(formPost.title.$error)}}
+      </div>
+    </div><br/>
+    <div class="row">
+      <label class="col-sm-1 col-sm-offset-1">Author:</label>
+      <input name="author" class="col-sm-9" ng-model="record.author" placeholder="Enter author name" required/>
+      <label class="error">*</label>
+    </div>
+    <div class="row">
+      <div class="error col-sm-4 col-sm-offset-2" ng-show="formPost.author.$invalid && formPost.author.$dirty">
+        {{getError(formPost.author.$error)}}
+      </div>
+    </div><br/>
+    <div class="row">
+      <label class="col-sm-1 col-sm-offset-1">Image:</label>
+      <input class="col-sm-9" ng-model="record.titleImage" placeholder="Enter image path"/>
+    </div><br/>
+    <div class="row">
+      <label class="col-sm-1 col-sm-offset-1">Body:</label>
+      <textarea rows="5" name="body" class="col-sm-9" ng-model="record.body" placeholder="Enter body" required></textarea>
+      <label class="error">*</label>
+    </div>
+    <div class="row">
+      <div class="error col-sm-4 col-sm-offset-2" ng-show="formPost.body.$invalid && formPost.body.$dirty">
+        {{getError(formPost.body.$error)}}
+      </div>
+    </div><br/>
+    <div class="row">
+      <button class="btn btn-success col-sm-2 col-sm-offset-7" type="submit" ng-disabled="formPost.$invalid">Save</button>
+      <button class="btn btn-warning col-sm-2" type="button" ng-click="cancel()">Cancel</button>
+    </div><br>
+  </form>
+</div>
