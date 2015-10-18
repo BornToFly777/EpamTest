@@ -1,3 +1,6 @@
+body {
+  overflow-y: scroll;
+}
 .logo {
     padding-top: 7px;
     padding-left: 40px;

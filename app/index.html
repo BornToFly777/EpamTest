@@ -29,7 +29,7 @@
                 </div>
                 <div class="menu">
                     <ul ng-controller="menuCtrl">
-                        <li ng-repeat="link in links"><a ng-click="toogleMenu(link)" ng-class="link.current" ng-href="{{link.href}}">{{link.name}}</a></li>
+                        <li ng-repeat="link in links"><a ng-class="link.current" ng-href="{{link.href}}">{{link.name}}</a></li>
                     </ul>
                 </div>
             </nav>
@@ -44,7 +44,7 @@
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-route/angular-route.js"></script>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootbox.min.js"></script>
     <script src="../bower_components/bootstrap-ui/ui-bootstrap-tpls-0.14.2.min.js"></script>
 
@@ -56,8 +56,8 @@
     <script src="scripts/services/dataLayer.js"></script>
     <script src="scripts/controllers/about.js"></script>
     <script src="scripts/controllers/menu.js"></script>
-    <script src="scripts/controllers/news.js"></script>
-    <script src="scripts/controllers/post.js"></script>
+    <script src="scripts/controllers/posts.js"></script>
+    <script src="scripts/controllers/fullPost.js"></script>
 
     <!-- endbuild -->
 </body>

@@ -8,13 +8,27 @@
  * Controller of the testApp
  */
 //модуль, созданный Yeoman
-//решил не удалять его и view = views/about.html
-//чтобы меню не было только с одним значением = Posts
+//решил не удалять его и view = 'views/about.html'
+//чтобы в меню было хотя бы 2 ссылки
 angular.module('testApp')
-  .controller('AboutCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .config(configAbout)
+  .controller('AboutCtrl', aboutCtrl);
+
+//настроим роутинг страницы
+function configAbout($routeProvider) {
+  $routeProvider
+    .when('/about', {
+      templateUrl: 'views/about.html',
+      controller: 'AboutCtrl',
+      controllerAs: 'about'
+    })
+}
+
+//контроллер
+function aboutCtrl() {
+  this.awesomeThings = [
+    'HTML5 Boilerplate',
+    'AngularJS',
+    'Karma'
+  ];
+}

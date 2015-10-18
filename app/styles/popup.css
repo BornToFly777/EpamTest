@@ -22,3 +22,8 @@ h3.modal-title {
   padding-left: 100px;
 }
 
+.modal-open {
+  overflow-y: scroll;
+  padding-right: 0;
+}
+

@@ -4,23 +4,18 @@ angular
 
 //фильтр по обрезанию текста постов
 function cutFilter(){
+  // если применить с доп пораметром 'value | cut:50' - обрежет 50
   return function (value, count) {
 
-    //проверим корректность данных
     if (!value) return '';
     count = parseInt(count, 10);
-    if (!count) return value;
+    //если доп параметр не получен или некорректный - установим его в 100! по умолчанию/заданию
+    if (!count) count = 100;
 
     //обрежем, если нужно
     if (value.length < count) return value;
     value = value.substr(0, count);
 
-    //проверим после обрезки последний ли пробел - если да - обрежем его! - так красивее
-    var lastSpace = value.lastIndexOf(' ');
-    if (lastSpace != -1) {
-      value = value.substr(0, lastSpace);
-    }
-
-    return value + ' …';
+    return value + '…';
   };
 }

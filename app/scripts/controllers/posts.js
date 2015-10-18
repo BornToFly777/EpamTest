@@ -1,17 +1,26 @@
 ﻿angular.module('testApp')
-  .controller('newsCtrl', dataCtrl)
+  .config(configPosts)
+  .controller('postsCtrl', postsCtrl)
   .controller('ModalInstanceCtrl', modalCtrl)
   .directive("blogPost", blogPost)
   .directive("popupPost", popupPost);
 
+//настроим роутинг страницы
+function configPosts($routeProvider) {
+  $routeProvider
+    .when('/posts', {
+      templateUrl: 'views/posts.html',
+      controller: 'postsCtrl'
+    })
+}
 
-dataCtrl.$inject = ['$scope','$uibModal','dataLayer'];
-function dataCtrl($scope, $uibModal, dataLayer) {
+//postsCtrl.$inject = ['$scope','$uibModal','dataLayer'];
+function postsCtrl($scope, $uibModal, dataLayer) {
   $scope.record = {};
 
   //получаем посты с помощью сервиса и выводим на страницу
   dataLayer.getAllPosts().then(function(data){
-    $scope.news = data.data;
+    $scope.posts = data.data;
     //обработка ошибок при работе с данными
   }, function(data){
     bootbox.alert("Error in loading data to the page! Something goes wrong!");
@@ -25,7 +34,7 @@ function dataCtrl($scope, $uibModal, dataLayer) {
         dataLayer.deletePost(record).then(function () {
           //успешно! - обновим данные
           dataLayer.getAllPosts().then(function (data) {
-            $scope.news = data.data;
+            $scope.posts = data.data;
             bootbox.alert("Post deleted successfully!");
             //обработка ошибок при работе с данными
           }, function(data){
@@ -58,7 +67,7 @@ function dataCtrl($scope, $uibModal, dataLayer) {
       dataLayer.updatePost($scope.record).then(function(){
         //успешно! - обновим данные на странице
         dataLayer.getAllPosts().then(function(data){
-          $scope.news = data.data;
+          $scope.posts = data.data;
           bootbox.alert("Post updated successfully!");
           //обработка ошибок при работе с данными
         }, function(data){
@@ -89,7 +98,7 @@ function dataCtrl($scope, $uibModal, dataLayer) {
       dataLayer.addNewPost($scope.record).then(function(){
         // успешно! - обновим данные на странице
         dataLayer.getAllPosts().then(function(data){
-          $scope.news = data.data;
+          $scope.posts = data.data;
           bootbox.alert("Post added successfully!");
           //обработка ошибок при работе с данными
         }, function(data){
@@ -105,7 +114,7 @@ function dataCtrl($scope, $uibModal, dataLayer) {
 
 
 // Логика контроллера модального окна добавления/редактирования поста
-modalCtrl.$inject = ['$scope','$modalInstance'];
+//modalCtrl.$inject = ['$scope','$modalInstance'];
 function modalCtrl($scope, $modalInstance) {
 
   $scope.record = $scope.record || {};
@@ -139,7 +148,7 @@ function modalCtrl($scope, $modalInstance) {
 function blogPost(){
   return {
     restrict: "E",
-    templateUrl: "views/posts.html"
+    templateUrl: "views/postDirective.html"
   }
 }
 
@@ -147,6 +156,6 @@ function blogPost(){
 function popupPost(){
   return {
     restrict: "E",
-    templateUrl: "views/popupPost.html"
+    templateUrl: "views/popupPostDirective.html"
   }
 }
