@@ -12,11 +12,12 @@ function configFullPost($routeProvider) {
 }
 
 //контроллер
-//fullPostCtrl.$inject = ['$scope','$location','$routeParams','dataLayer'];
+fullPostCtrl.$inject = ['$scope','$location','$routeParams','dataLayer'];
 function fullPostCtrl($scope, $location, $routeParams, dataLayer){
-  var id, url;
   $scope.record = {};
-  $scope.$on("$routeChangeSuccess", function () {
+  $scope.$on("$routeChangeSuccess", getFullPost);
+
+  function getFullPost(){
     var id = $routeParams["id"];
     if(id!=='undefined'){
       //получим пост по id
@@ -26,6 +27,7 @@ function fullPostCtrl($scope, $location, $routeParams, dataLayer){
         bootbox.alert("Error in getting data! Something goes wrong!");
       })
     }
-  });
+  }
 
 }
+

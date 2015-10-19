@@ -2,8 +2,9 @@ angular.module('testApp')
   .factory("dataLayer", dataService);
 
 //сервис по работе с базой
-//dataService.$inject = ['$http'];
+dataService.$inject = ['$http'];
 function dataService($http){
+  var baseUrl = 'http://localhost:3000/posts';
   return {
     getAllPosts: getAllPosts,
     addNewPost: addNewPost,
@@ -11,7 +12,6 @@ function dataService($http){
     deletePost: deletePost,
     getPostById: getPostById
   };
-  var baseUrl = 'http://localhost:3000/posts';
   function getAllPosts(){
     return $http.get(baseUrl);
   }

@@ -14,32 +14,32 @@ function configPosts($routeProvider) {
     })
 }
 
-//postsCtrl.$inject = ['$scope','$uibModal','dataLayer'];
+postsCtrl.$inject = ['$scope','$uibModal','dataLayer'];
 function postsCtrl($scope, $uibModal, dataLayer) {
   $scope.record = {};
 
   //получаем посты с помощью сервиса и выводим на страницу
-  dataLayer.getAllPosts().then(function(data){
-    $scope.posts = data.data;
-    //обработка ошибок при работе с данными
-  }, function(data){
-    bootbox.alert("Error in loading data to the page! Something goes wrong!");
-  });
+  $scope.getAllPosts = function(message){
+    dataLayer.getAllPosts().then(function(data){
+      // успешно! - загрузим
+      $scope.posts = data.data;
+      if (typeof message != "undefined"){
+        bootbox.alert(message);
+      }
+      //обработка ошибок при загрузке
+    }, function(data){
+      bootbox.alert("Error in loading data to the page! Something goes wrong!");
+    });
+  };
 
-  //удаление поста и обновление всех постов на странице !! разобраться!!!
+  //удаление поста
   $scope.removeRecord = function (record) {
     bootbox.confirm("Are you sure?", function(result) {
       if (result) {
         // удаляем пост
         dataLayer.deletePost(record).then(function () {
           //успешно! - обновим данные
-          dataLayer.getAllPosts().then(function (data) {
-            $scope.posts = data.data;
-            bootbox.alert("Post deleted successfully!");
-            //обработка ошибок при работе с данными
-          }, function(data){
-            bootbox.alert("Post deleted successfully! BUT Error in loading data to the page!");
-          });
+          $scope.getAllPosts("Post deleted successfully!");
         }, function(data){
           bootbox.alert("Error in deleting data!");
         })
@@ -66,20 +66,14 @@ function postsCtrl($scope, $uibModal, dataLayer) {
       //обновляем пост
       dataLayer.updatePost($scope.record).then(function(){
         //успешно! - обновим данные на странице
-        dataLayer.getAllPosts().then(function(data){
-          $scope.posts = data.data;
-          bootbox.alert("Post updated successfully!");
-          //обработка ошибок при работе с данными
-        }, function(data){
-          bootbox.alert("Post updated successfully! BUT Error in loading data to the page!");
-        });
+        $scope.getAllPosts("Post updated successfully!");
       }, function(data){
         bootbox.alert("Error in updating data!");
       })
     });
   };
 
-  //модальное окно добавления поста
+  //добавление поста
   $scope.open = function() {
     var modalInstance = $uibModal.open({
       templateUrl: 'myModalContent.html',
@@ -97,24 +91,21 @@ function postsCtrl($scope, $uibModal, dataLayer) {
       //добавляем
       dataLayer.addNewPost($scope.record).then(function(){
         // успешно! - обновим данные на странице
-        dataLayer.getAllPosts().then(function(data){
-          $scope.posts = data.data;
-          bootbox.alert("Post added successfully!");
-          //обработка ошибок при работе с данными
-        }, function(data){
-          bootbox.alert("Post added successfully! BUT Error in loading data to the page!");
-        })
+        $scope.getAllPosts("Post added successfully!");
       }, function(data){
         bootbox.alert("Error in adding data!");
       })
     });
   };
+
+  //загрузим все посты
+  $scope.getAllPosts();
 }
 
 
 
 // Логика контроллера модального окна добавления/редактирования поста
-//modalCtrl.$inject = ['$scope','$modalInstance'];
+modalCtrl.$inject = ['$scope','$modalInstance'];
 function modalCtrl($scope, $modalInstance) {
 
   $scope.record = $scope.record || {};

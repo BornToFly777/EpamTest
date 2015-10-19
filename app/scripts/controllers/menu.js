@@ -2,9 +2,10 @@
     .controller('menuCtrl', menuCtrl);
 
 //контроллер
+menuCtrl.$inject = ['$scope','$route'];
 function menuCtrl($scope, $route) {
-  var i= 0,len=0;
-  //меню. при редактировании меню - изменить индексы в переключении по маршрутам
+  var i=0,len=0;
+  //меню.
   $scope.links = [
     { href: "#/", name: "Posts", url: "views/posts.html", current: "current"},
     { href: "#/about", name: "About", url: "views/about.html", current: "" }
